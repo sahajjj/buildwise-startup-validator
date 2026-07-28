@@ -1,0 +1,532 @@
+@import "tailwindcss";
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,500,400,300&display=swap');
+
+/* ==========================================================================
+   BuildWise Design System — Premium Editorial Cinematic theme
+   Satoshi typography, dark charcoal base surface, warm ivory text,
+   burnt terracotta & muted olive accents, crisp structural borders.
+   ========================================================================== */
+
+@theme {
+  /* Brand Typography Stack (Satoshi & Inter fallback) */
+  --font-sans: 'Satoshi', 'Inter', "Inter Fallback", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Satoshi', 'Inter', "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+
+  /* Color Palette (Semantic Tokens) */
+  --color-text-primary: #F6F2EB;      /* Warm Ivory */
+  --color-text-secondary: #7A746C;    /* Warm Gray */
+  --color-text-tertiary: rgba(246, 242, 235, 0.4);
+  --color-text-inverse: #0B0B0B;
+  --color-text-brand: #C66A3D;        /* Burnt Terracotta */
+  --color-text-success: #7C9A6D;      /* Muted Olive */
+  --color-text-warning: #C66A3D;
+  --color-text-danger: #EF4444;
+
+  /* Brand Accent Colors (Mapped to Terracotta) */
+  --color-gold-500: #C66A3D;
+  --color-gold-600: #B55B2E;
+  --color-gold-400: #D77A4D;
+  --color-gold-50: rgba(198, 106, 61, 0.05);
+
+  --color-surface-base: #0B0B0B;      /* Rich charcoal background */
+  --color-surface-canvas: #0B0B0B;
+  --color-surface-raised: #171717;    /* Surface color */
+  --color-surface-sunken: #050505;
+  --color-surface-brand: #C66A3D;
+  --color-surface-brand-hover: #B55B2E;
+
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-border-focus: #C66A3D;
+
+  /* Spacing Scale (4px Base Grid) */
+  --spacing-space-1: 4px;
+  --spacing-space-2: 8px;
+  --spacing-space-3: 12px;
+  --spacing-space-4: 16px;
+  --spacing-space-5: 20px;
+  --spacing-space-6: 24px;
+  --spacing-space-7: 32px;
+  --spacing-space-8: 40px;
+  --spacing-space-9: 56px;
+  --spacing-space-10: 80px;
+  --spacing-space-11: 120px;
+
+  /* Border Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(15, 15, 20, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 15, 20, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 15, 20, 0.12);
+
+  /* Animations & Motion */
+  --animate-drift-mesh: drift-mesh 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  --animate-float-slow: float-slow 15s ease-in-out infinite;
+  --animate-float-medium: float-medium 12s ease-in-out infinite;
+  --animate-float-fast: float-fast 8s ease-in-out infinite;
+
+  @keyframes drift-mesh {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-24px) rotate(10deg) scale(1.05);
+    }
+  }
+  @keyframes float-medium {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg) scale(0.95);
+    }
+    50% {
+      transform: translateY(18px) rotate(-15deg) scale(1.02);
+    }
+  }
+  @keyframes float-fast {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(8deg);
+    }
+  }
+}
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 4%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 10% 4%;
+  --radius: 0.75rem;
+}
+
+body {
+  background-color: var(--color-surface-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 24px;
+}
+
+/* ==========================================================================
+   Focus Outline Rules (WCAG 2.2 AA Compliance)
+   ========================================================================== */
+.focus-ring {
+  outline: none;
+  transition: outline-color 100ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 100ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Button Variants (Urbi & Design System Standard)
+   ========================================================================== */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-space-2);
+  background-color: var(--color-surface-brand);
+  color: var(--color-text-inverse);
+  font-weight: 500;
+  font-size: 14px;
+  height: 40px;
+  padding: 0 var(--spacing-space-4);
+  border-radius: var(--radius-full);
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: var(--color-surface-brand-hover);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Yellow/Gold button (Urbi Style) */
+.btn-gold-urbi {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-space-3);
+  background-color: var(--color-surface-brand);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 12px 10px 24px;
+  border-radius: var(--radius-full);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), background-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+.btn-gold-urbi:hover {
+  background-color: var(--color-surface-brand-hover);
+}
+.btn-gold-urbi .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-text-primary);
+  color: var(--color-surface-brand);
+  transition: transform 200ms ease;
+}
+.btn-gold-urbi:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+/* Yellow/Gold button (BuildWise Standard) */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-space-2);
+  background-color: var(--color-surface-brand);
+  color: var(--color-text-inverse);
+  font-weight: 600;
+  font-size: 14px;
+  height: 40px;
+  padding: 0 var(--spacing-space-5);
+  border-radius: var(--radius-full);
+  transition: transform 150ms ease, background-color 200ms ease, box-shadow 200ms ease;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(232, 168, 56, 0.15);
+}
+.btn-gold:hover {
+  background-color: var(--color-surface-brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(232, 168, 56, 0.25);
+}
+.btn-gold:active {
+  transform: translateY(0);
+}
+.btn-gold .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-text-primary);
+  color: var(--color-surface-brand);
+  transition: transform 200ms ease;
+}
+.btn-gold:hover .btn-icon {
+  transform: translateX(2px);
+}
+
+/* Film Grain Effect */
+.film-grain {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  right: -50%;
+  bottom: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E') repeat;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Hero and Signup Section background */
+.section-hero {
+  background-color: #0B0B0B;
+  position: relative;
+}
+
+/* Dashboard Dark theme background */
+.dashboard-dark-bg {
+  background-color: #0B0B0B;
+  position: relative;
+}
+
+/* Dark theme glassmorphic card */
+.dark-glass-card {
+  background: rgba(23, 23, 23, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dark-glass-card:hover {
+  background: rgba(23, 23, 23, 0.85);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.55);
+  transform: translateY(-2px);
+}
+
+/* Glass card styling */
+.glass-card {
+  background: rgba(23, 23, 23, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Translucent outline button (Urbi Style) */
+.btn-glass-urbi {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-space-3);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 12px 10px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-glass-urbi:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+.btn-glass-urbi .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  transition: transform 200ms ease;
+}
+.btn-glass-urbi:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-space-2);
+  background-color: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 500;
+  font-size: 14px;
+  height: 40px;
+  padding: 0 var(--spacing-space-4);
+  border-radius: var(--radius-full);
+  transition: background-color 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-text-primary);
+}
+
+/* ==========================================================================
+   Urbi-Inspired Scroll & Floating Elements
+   ========================================================================== */
+.hero-lavender-bg {
+  background-color: #171717;
+}
+
+.dark-nav-banner {
+  background-color: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ==========================================================================
+   Lenis Smooth Scroll
+   ========================================================================== */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Hero Artwork Animation
+   ========================================================================== */
+.dark-hero-bg {
+  background-color: #FAFAFA;
+}
+
+.mouse-spotlight {
+  display: none;
+}
+
+.interactive-dashboard {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.hero-art-container {
+  position: relative;
+  width: clamp(320px, 42vw, 600px);
+  height: clamp(320px, 42vw, 600px);
+  animation: hero-art-rotate 25s cubic-bezier(0.4, 0, 0.6, 1) infinite,
+             hero-art-pulse 8s ease-in-out infinite;
+}
+
+.hero-art-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 25px 60px rgba(79, 70, 229, 0.18))
+          drop-shadow(0 8px 24px rgba(15, 15, 20, 0.08));
+}
+
+@keyframes hero-art-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.02);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(-5deg) scale(0.98);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes hero-art-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 25px 60px rgba(79, 70, 229, 0.18))
+            drop-shadow(0 8px 24px rgba(15, 15, 20, 0.08));
+  }
+  50% {
+    filter: drop-shadow(0 30px 80px rgba(79, 70, 229, 0.28))
+            drop-shadow(0 12px 32px rgba(15, 15, 20, 0.12));
+  }
+}
+
+/* Glass button dark variant (for use on light backgrounds) */
+.btn-glass-urbi-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-space-3);
+  background: rgba(13, 6, 40, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #0D0628;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 10px 12px 10px 24px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(13, 6, 40, 0.12);
+  transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.btn-glass-urbi-dark:hover {
+  background: rgba(13, 6, 40, 0.12);
+  border-color: rgba(13, 6, 40, 0.25);
+}
+.btn-glass-urbi-dark .btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(13, 6, 40, 0.08);
+  color: #0D0628;
+  transition: transform 200ms ease;
+}
+.btn-glass-urbi-dark:hover .btn-icon {
+  transform: translateX(3px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* prefers-reduced-motion triggers */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Stagger animation helpers for FadeInView components */
+.stagger-visible > .stagger-item {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.stagger-visible > .stagger-item:nth-child(1) { transition-delay: 0s; }
+.stagger-visible > .stagger-item:nth-child(2) { transition-delay: 0.12s; }
+.stagger-visible > .stagger-item:nth-child(3) { transition-delay: 0.24s; }
+.stagger-visible > .stagger-item:nth-child(4) { transition-delay: 0.36s; }
+.stagger-visible > .stagger-item:nth-child(5) { transition-delay: 0.48s; }
+.stagger-visible > .stagger-item:nth-child(6) { transition-delay: 0.60s; }
+.stagger-visible > .stagger-item:nth-child(7) { transition-delay: 0.72s; }
+.stagger-visible > .stagger-item:nth-child(8) { transition-delay: 0.84s; }
+
+/* SVG Flowing Path Animation */
+@keyframes strokeFlow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+.flowing-line {
+  animation: strokeFlow 0.8s linear infinite;
+}
