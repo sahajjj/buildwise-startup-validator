@@ -532,13 +532,21 @@ export function ReportView({
       </div>
  
       {/* Right Sidebar: AI Co-Founder Chat Panel */}
-      {/* Chat Panel with CSS transition */}
+      {/* Chat Panel with CSS transition - floats on mobile and sits next to content on lg screens */}
       <div
-        className={`border-l border-border-default bg-surface-raised flex flex-col shrink-0 z-10 transition-all duration-300 ease-out overflow-hidden ${
-          chatOpen ? "w-[380px] opacity-100" : "w-0 opacity-0"
+        className={`border-l border-border-default bg-surface-raised flex flex-col shrink-0 z-30 transition-all duration-300 ease-out overflow-hidden ${
+          chatOpen 
+            ? "w-full sm:w-[380px] opacity-100 absolute right-0 top-0 bottom-0 h-full shadow-2xl lg:shadow-none lg:relative lg:w-[380px]" 
+            : "w-0 opacity-0 absolute lg:relative lg:w-0"
         }`}
       >
-        {chatOpen && <ChatPanel reportId={reportId} title={title} />}
+        {chatOpen && (
+          <ChatPanel 
+            reportId={reportId} 
+            title={title} 
+            onClose={() => setChatOpen(false)} 
+          />
+        )}
       </div>
     </div>
   );

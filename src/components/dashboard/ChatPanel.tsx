@@ -12,9 +12,10 @@ interface Message {
 interface ChatPanelProps {
   reportId: string;
   title: string;
+  onClose?: () => void;
 }
 
-export function ChatPanel({ reportId, title }: ChatPanelProps) {
+export function ChatPanel({ reportId, title, onClose }: ChatPanelProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "initial",
@@ -89,9 +90,19 @@ export function ChatPanel({ reportId, title }: ChatPanelProps) {
           <Brain className="h-4 w-4 text-[#00D28A]" />
           <span className="text-xs sm:text-sm font-bold tracking-tight">AI Co-Founder Chat</span>
         </div>
-        <span className="text-[9px] font-bold bg-white/10 px-2 py-0.5 rounded text-white/70 tracking-wide uppercase">
-          Sandbox Mode
-        </span>
+        <div className="flex items-center gap-2.5">
+          <span className="text-[9px] font-bold bg-white/10 px-2 py-0.5 rounded text-white/70 tracking-wide uppercase">
+            Sandbox Mode
+          </span>
+          {onClose && (
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-white text-[11px] font-bold px-2 py-0.5 border border-white/15 hover:border-white/30 rounded bg-white/5 cursor-pointer transition-colors"
+            >
+              Close
+            </button>
+          )}
+        </div>
       </div>
  
       {/* Message List */}
