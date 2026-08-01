@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { MobileNav } from "@/components/dashboard/MobileNav";
 import Link from "next/link";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
@@ -20,7 +21,7 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
   const isClerkConfigured = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   return (
-    <div className="flex h-screen bg-[#06050C] dashboard-dark-bg overflow-hidden text-white">
+    <div className="flex h-dvh bg-[#06050C] dashboard-dark-bg overflow-hidden text-white">
       {/* Sidebar Nav */}
       <Sidebar />
  
@@ -79,9 +80,12 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
         </header>
  
         {/* Content body */}
-        <main className="flex-1 overflow-y-auto bg-transparent">
+        <main className="flex-1 overflow-y-auto bg-transparent pb-20 lg:pb-0">
           {children}
         </main>
+
+        {/* Mobile Bottom Navigation */}
+        <MobileNav />
       </div>
     </div>
   );

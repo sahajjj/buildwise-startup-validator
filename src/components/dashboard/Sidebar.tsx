@@ -32,7 +32,7 @@ export function Sidebar() {
  
   return (
     <div
-      className={`relative h-screen bg-[#020806]/75 text-white flex flex-col justify-between transition-all duration-300 border-r border-white/5 backdrop-blur-md shrink-0 z-30 ${
+      className={`relative h-screen bg-[#020806]/75 text-white hidden lg:flex flex-col justify-between transition-all duration-300 border-r border-white/5 backdrop-blur-md shrink-0 z-30 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >

@@ -77,9 +77,8 @@ export function ReportView({
     if (score >= 60) return "text-[#B45309] bg-[#B45309]/5 border-[#B45309]/15";
     return "text-[#B91C1C] bg-[#B91C1C]/5 border-[#B91C1C]/15";
   };
- 
   return (
-    <div className="flex h-[calc(100vh-64px)] relative overflow-hidden text-text-primary">
+    <div className="flex h-[calc(100dvh-64px)] relative overflow-hidden text-text-primary">
       {/* Left: Report Content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto p-6 space-y-6 bg-surface-canvas">
         {/* Title Header */}
@@ -95,8 +94,8 @@ export function ReportView({
               {title}
             </h1>
           </div>
- 
-          <div className="flex items-center gap-3">
+
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {/* Plain English Switch */}
             <div className="flex items-center gap-2 bg-surface-sunken border border-border-default rounded-full px-3 py-1.5 mr-1">
               <span className={`text-[10px] font-extrabold tracking-wide uppercase transition-colors duration-200 ${eli5Mode ? "text-[#00D28A]" : "text-gray-400"}`}>
