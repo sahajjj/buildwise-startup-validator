@@ -1,4 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 const isPublicRoute = createRouteMatcher([
   "/",
@@ -7,15 +8,19 @@ const isPublicRoute = createRouteMatcher([
   "/api/(.*)" // Ensure API routes can be tested easily in dev
 ]);
 
-export default clerkMiddleware(async (auth, request) => {
-  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
-    // Clerk not configured yet - bypass protection for smooth local testing
-    return;
-  }
-  if (!isPublicRoute(request)) {
-    await auth().protect();
-  }
-});
+const fallbackMiddleware = () => {
+  return NextResponse.next();
+};
+
+const middlewareToExport = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  ? clerkMiddleware(async (auth, request) => {
+      if (!isPublicRoute(request)) {
+        await auth().protect();
+      }
+    })
+  : fallbackMiddleware;
+
+export default middlewareToExport;
 
 export const config = {
   matcher: [
