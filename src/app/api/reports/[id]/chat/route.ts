@@ -93,7 +93,7 @@ export async function POST(
         Respond as a helpful, expert co-founder in a concise, professional, and conversational tone.
       `;
 
-      reply = await generateAIContent(prompt, false, "llama-3.1-8b-instant");
+      reply = await generateAIContent(prompt, false, "qwen/qwen3.8-27b");
     }
 
     // Save assistant reply to database
