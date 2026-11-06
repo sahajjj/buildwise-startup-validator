@@ -57,8 +57,8 @@ export async function POST(req: Request) {
       },
     });
 
-    // Run AI pipeline in the background asynchronously
-    runReportGenerationPipeline(
+    // Run AI pipeline synchronously so serverless functions (e.g. Vercel) do not freeze/terminate execution prematurely
+    await runReportGenerationPipeline(
       report.id,
       title,
       ideaDescription,

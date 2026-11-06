@@ -103,8 +103,22 @@ export default function NewReportPage() {
 
     setLoading(true);
     setError(null);
-    setProgress(5);
+    setProgress(15);
     setProgressStatus("Bootstrapping validation engine...");
+
+    // Smooth progressive animation while AI pipeline runs
+    const progressTimer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev < 45) {
+          setProgressStatus("Scanning competitor landscape & calculating TAM/SAM/SOM...");
+          return prev + 15;
+        } else if (prev < 85) {
+          setProgressStatus("Formulating monetization tiers & prioritizing MVP features...");
+          return prev + 15;
+        }
+        return prev;
+      });
+    }, 700);
 
     try {
       const response = await fetch("/api/reports", {
@@ -120,13 +134,21 @@ export default function NewReportPage() {
         }),
       });
 
+      clearInterval(progressTimer);
+
       if (!response.ok) {
         throw new Error("Failed to start generation");
       }
 
       const data = await response.json();
       setGeneratedId(data.id);
+      setProgress(100);
+      setProgressStatus("Finalizing report...");
+      setTimeout(() => {
+        window.location.href = `/reports/${data.id}`;
+      }, 500);
     } catch (err: any) {
+      clearInterval(progressTimer);
       console.error(err);
       setError("Could not submit idea. Verify server connection.");
       setLoading(false);
