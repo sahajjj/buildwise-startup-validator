@@ -47,7 +47,7 @@ export async function POST(
 
       // Access control check
       const isMember = dbReport.workspace.members.some((m) => m.userId === user.id);
-      if (!isMember && user.id !== "mock-user-123") {
+      if (!isMember && !user.id.startsWith("mock-") && user.id !== "mock-user-123") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
       }
 

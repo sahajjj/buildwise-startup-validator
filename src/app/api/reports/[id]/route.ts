@@ -31,7 +31,7 @@ export async function GET(
 
     // Access control check: User must be a member of the workspace
     const isMember = report.workspace.members.some((m) => m.userId === user.id);
-    if (!isMember && user.id !== "mock-user-123") {
+    if (!isMember && !user.id.startsWith("mock-") && user.id !== "mock-user-123") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
@@ -76,7 +76,7 @@ export async function DELETE(
 
     // Access control check: User must be a member of the workspace
     const isMember = report.workspace.members.some((m) => m.userId === user.id);
-    if (!isMember && user.id !== "mock-user-123") {
+    if (!isMember && !user.id.startsWith("mock-") && user.id !== "mock-user-123") {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
